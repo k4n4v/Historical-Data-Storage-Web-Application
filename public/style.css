@@ -1,0 +1,110 @@
+html {
+    width: 60%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    background-color: #FFFFFF;
+}
+body {
+    height: 100%;
+    min-height: 100%;
+    line-height: 1.75;
+    background-color: #FFFFFF;
+}
+.fileLogPanel {
+    height: 25%;
+    width: 100%; 
+}
+.gpxViewPanel {
+    height: 25%;
+    width: 100%; 
+}
+table {
+    height: 240px;
+    table-layout: fixed;
+    width: 100%;
+    overflow-y:auto;
+    overflow-x:auto;
+    border: 1px solid lightgray;
+    display:block;
+}
+.table_other {
+    height: 240px;
+    table-layout: fixed;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    overflow-y:auto;
+    overflow-x:auto;
+    border: 1px solid lightgray;
+    display:block;
+}
+th {
+    width: 500px;
+    font-weight: 600;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+tr, td {
+    font-weight: normal;
+    border: 1px solid lightgray;
+    padding: 10px;
+}
+#button_showOther, #button_rename {
+    display: inline-block;
+    align-items: center;
+    width: 200px;
+}
+.buttonMain {
+    width: 200px;
+    background-color: lightskyblue;
+    color: white;
+    height: 50px;
+    margin-inline: 100px;
+}
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+  }
+a:link:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=submit], button {
+    cursor: pointer;
+    cursor: hand;
+}
+@media(max-width: 900px) {
+    html {
+        font-size: 14px !important;
+        width: 80% !important;
+    }
+}
+@media(max-width: 480px) {
+    html {
+        font-size: 12px !important;
+        width: 90% !important;
+    }
+}
+@media(max-width: 320px) {
+    html {
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+  }
+  

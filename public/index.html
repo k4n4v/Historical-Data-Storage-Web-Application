@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GPS Data Viewer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+</head>
+
+<body>
+    <p></p>
+    <h1>GPS Data Viewer</h1>
+    <br></br>
+
+    <div style="width: 100%;">
+
+        <div>
+            <h3>Welcome</h3>
+            <hr>
+            <p>Wecome to GPS Data View. To view files already on the server, navigate to the GPX File Log section. To view a GPX file componenets navigate to the 
+                View GPX panel. If you would like to create a new GPX doc, select from the options below!
+            </p>
+        </div>
+        <br></br>
+        <div class="fileLogPanel"> 
+            <h4>File Log</h4>
+            <hr>
+            <table id="table_file">
+                <tr>
+                    <th>File Name (click to download)</th>
+                    <th>Version</th>
+                    <th>Creator</th>
+                    <th>Number of Waypoints</th>
+                    <th>Number of Routes</th>
+                    <th>Number of Tracks</th>
+                </tr>
+            </table>
+            <p></p>
+            <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="uploadFile" class="btn btn-secondary">
+                    <input type='submit' value='Upload' class="btn btn-secondary">
+                </div>
+            </form>
+            <br>
+        </div>
+        <div class="gpxViewPanel">
+            <p></p>
+            <h4 style="display: inline-block;">GPX View</h4>
+            <div style="float: right;">
+                <i>Select a file: </i>
+                <select id="dropdown_gpxView">
+                    <option id="temp">Select a File</option>
+                </select>
+            </div>
+            <hr>
+            <p id=gpxDisplaying></p>
+            <table id="table_gpx">
+                <tr>
+                    <th>Component</th>
+                    <th>Name</th>
+                    <th>Number of Points</th>
+                    <th>Length</th>
+                    <th>Loop</th>
+                </tr>
+            </table>
+            
+            <p></p>
+
+            <!-- Select for GPX view panel-->
+            <div style="text-align:center">
+                <p>Select a component from the drop down below to view its other data or to rename it.</p>
+            <select id="dropdown_otherData">
+                <option>Components</option>
+            </select>
+            </div>
+     
+            <p></p>
+
+            <div style="text-align:center">
+                <button id="button_showOther">Show Other Data</button>
+                <p></p>
+            </div>
+            <div style="text-align:center">
+                <p></p>
+                <form style="display:inline-block">
+                    <label for="name"><b>Name</b></label>
+                    <input id="rename" type="text" placeholder="Enter a new name" name="name" required>
+                    <button id="button_rename">Rename</button>
+                </form>
+            </div>
+            <p></p>
+        </div>
+        <br>
+        <h3>Find Path</h3>
+        <hr>
+        <div style="text-align:center">
+            <form>
+                <label  for="start_latitude"><b>Start Latitude</b></label>
+                <input id="startLat" step="any" type="number" placeholder="Enter start latitude" name="start_latitude" min="-90" max="90" required>
+    
+                <label  for="start_longitude"><b>Start Longitude</b></label>
+                <input id="startLon" step="any" type="number" placeholder="Enter start longitude" name="start_longitude" min="-180" max="180" required>
+
+                <label  for="end_latitude"><b>End Latitude</b></label>
+                <input id="endLat" step="any" type="number" placeholder="Enter end latitude" name="start_latitude" min="-90" max="90" required>
+    
+                <label  for="end_longitude"><b>End Longitude</b></label>
+                <input id="endLon" step="any" type="number" placeholder="Enter end longitude" name="start_longitude" min="-180" max="180" required>
+                
+                <label  for="delta"><b>Delta</b></label>
+                <input id="delta" step="any" type="number" placeholder="Enter delta" name="delta" min="0" required>
+                <p></p>
+                <button id="button_findPath" class="buttonMain">Find path</button>
+            </form>
+        </div>
+        <p></p>
+        <table id="table_path">
+            <tr>
+                <th>Component</th>
+                <th>Name</th>
+                <th>Number of Points</th>
+                <th>Length</th>
+                <th>Loop</th>
+            </tr>
+        </table>
+        <br>
+        <div>
+            <h3>Add Route</h3>
+            <hr>
+            <form id="form_addRoute"> 
+            
+                <select id="dropdown_addRoute"></select>
+    
+                <label ="name"><b>Name</b></label>
+                <input id="routeName" type="text" placeholder="Enter route name" name="name" required>
+                <p></p>
+
+                <label for="wpt1Lat"><b>Latitude</b></label>
+                <input id="wpt1Lat" type="number" placeholder="Enter latitude" name="wpt1Lat"  min="-90" max="90" required>
+
+                <label for="wpt1Lon"><b>Longitude</b></label>
+                <input id="wpt1Lon" type="number" placeholder="Enter longitude" name="wpt1Lon" min="-180" max="180"  required>
+
+                <br>
+
+                <label for="wpt2Lat"><b>Latitude</b></label>
+                <input id="wpt2Lat" type="number" placeholder="Enter latitude" name="wpt2Lat"  min="-90" max="90" required>
+
+                <label for="wpt2Lon"><b>Longitude</b></label>
+                <input id="wpt2Lon" type="number" placeholder="Enter longitude" name="wpt2Lon" min="-180" max="180" required>
+
+                <button id="button_addRoute" class="buttonMain" type="submit">Add route</button>
+                
+            </form>
+            <button id="button_addWpt">Add Waypoint</button>
+        </div>
+        <br></br>
+        <!-- form_createGPX -->
+        <h3>Create GPX</h3>
+        <hr>
+        <div>
+            <form id="form_createGPX"> 
+                
+                <label for="filename"><b>File Name</b></label>
+                <input id="gpxName" type="text" placeholder="Enter file name" name="filename" required>
+    
+                <label for="creator"><b>Creator</b></label>
+                <input id="gpxCreator" type="text" placeholder="Enter creator" name="creator" required>
+                <p></p>
+                <button id="button_createGPX" class="buttonMain" type="submit">Create GPX</button>
+            </form>
+        </div>
+        <br></br>
+    </div>
+
+
+    <!-- Leave me at the bottom of body -->
+    <script src="/index.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
